@@ -1,7 +1,8 @@
-from random import random
 from PIL import Image
 import matplotlib.pyplot as plt 
 import numpy as np
+import matplotlib.colors as colors 
+
 
 ###Subtask a###
 
@@ -37,12 +38,12 @@ print(f"The shape of img is {img.shape}")
 unique_band_values = np.unique(img)
 #Stringcodes for the different colors for the bands 
 print(unique_band_values)
-c = ['green', 'green', 'red', 'orange', 'yellow', 'purple', 'black']
+c = colors.ListedColormap(['green', 'red', 'orange', 'yellow', 'purple', 'black'])
 
 fig, ay = plt.subplots(1,2, figsize=(10,2))
-ay[0].imshow(img, cmap='gray', aspect="auto")
+ay[0].imshow(img, cmap='gray')
 ay[0].set_title('Greyscale image')
-ay[1].contourf(img, levels = unique_band_values, colors=c)
+ay[1].imshow(img, cmap=c)
 ay[1].set_title(f"Color image")
 
 for a in ay.ravel():
