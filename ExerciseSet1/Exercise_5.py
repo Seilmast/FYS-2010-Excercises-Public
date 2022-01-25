@@ -232,11 +232,14 @@ plt.tight_layout()
 
 #### Part (c)
 img2 = io.loadmat("./Data/IM2.mat").get("IM2")
-zooomed_2 = bicubic(img2, 1.5)
+zoomed_2 = bicubic(img2, 1.5)
 
 fig2,ax2 = plt.subplots(nrows=1, ncols=2)
-ax[0].imshow(img2, cmap="gray")
-ax[1].imshow(zommed_2, cmap="gray")
+ax2[0].imshow(img2, cmap="gray")
+ax2[1].imshow(zoomed_2, cmap="gray")
+
+ax2[0].set_title('Original IM2 Image')
+ax2[1].set_title('Bicubic IM2 Image')
 
 
 plt.tight_layout()
