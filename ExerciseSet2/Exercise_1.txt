@@ -1,0 +1,14 @@
+We have a sensor chip of 7mm x 7mm, and a lense 35mm from that chip. The chip has 1024 x 1024 elements. 
+From the lense, we want to take a picture of an object 0.5m, or 500mm, away. 
+How many line pairs can the camera resolve?
+
+First we find the ratio 
+
+7mm / 35mm = z / 500mm -> z = 100mm 
+
+Then we resolve how many lines can be resolved
+
+1024 lines / z ~ 10 l/mm 
+
+Dividing by two to get linepairs, and we find that the camera can resolve 5 lp/mm in both directions. 
+
