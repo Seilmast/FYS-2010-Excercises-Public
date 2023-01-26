@@ -1,0 +1,19 @@
+We have an image with 255 values, which we can represent by a number of bits. 
+To display every discrete instance of light, we can choose 8-bits as this gives us 256 unique values to work with. 
+Including "no light", we now have a 1:1 ratio of discrete bit-values and illumination. 
+If we now reduce the bits from 8 to 7, we only have 2^7=128 unique values which must strech over 256 values of illumination. 
+This means that two values of illumination must share the same digitized representation. 
+Reducing the bit from 8 to 6, we now have 2⁶=64 unique values. This means 4 values of intensity must share the same digital representation.
+From 8 to 5 bits we get 2⁵ = 32 unique values. This means 8 values of intensity must share the same digital representation
+From 8 to 4 bits we get 2⁴ = 16 unique values. This means 16 values of intensity must share the same digital representation
+
+We can represent this as a table 
+
+8-bit: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+7-bit: 1 1 2 2 3 3 4 4 5  5  6  6  7  7  8  8  9  9 10 10 
+6-bit: 1 1 1 1 2 2 2 2 3  3  3  3  4  4  4  4  5  5  5  5
+5-bit: 1 1 1 1 1 1 1 1 2  2  2  2  2  2  2  2  2  3  3  3
+4-bit: 1 1 1 1 1 1 1 1 1  1  1  1  1  1  1  1  2  2  2  2 
+
+Given that humans can detect abrubt changes between shades which differs with eight or more in intensity, we expect contouring to occur 
+at 5 bits or lower. At 5-bits, we have k= 2⁵ = 32

@@ -98,7 +98,8 @@ def shear(img, sv, sh):
 
 
 #Load and convert image to numpy
-img_path = './Data/Fig0222(b)(cameraman).tif'
+# img_path = 'ExerciseSet1\Data\Fig0222(b)(cameraman).tif'
+img_path = './/Data//Fig0222(b)(cameraman).tif'
 img = Image.open(img_path)
 img = np.asarray(img)
 
@@ -116,18 +117,18 @@ ax[1,0].imshow(rotate(img, np.pi/3), cmap='gray')
 ax[1,0].set_title('Subtask b')
 
 #Subtask c 
-ax[1,1].imshow(translate(img, 50, 100), cmap='gray')
+ax[1,1].imshow(translate(img, 100, 100), cmap='gray')
 ax[1,1].set_title('Subtask c')
 
 #Subtask d
-ax[2,0].imshow(shear(img, 0.5, 0), cmap='gray')
+ax[2,0].imshow(shear(img, 1, 0), cmap='gray')
 ax[2,0].set_title('Subtask d')
 
-ax[2,1].imshow(shear(img, 0, 0.5), cmap='gray')
+ax[2,1].imshow(shear(img, 0, 1), cmap='gray')
 ax[2,1].set_title('Subtask d')
 
-# for a in ax.ravel():
-#     a.set_axis_off()
+for a in ax.ravel():
+    a.set_axis_off()
 
 plt.tight_layout()
 plt.show()
@@ -142,8 +143,8 @@ az[0].set_title('Subtask e')
 az[1].imshow(scale(shear(shear(img, 0.2, 0), 0, 0.5), 2, 2), cmap='gray')
 az[1].set_title('Subtask e')
 
-# for a in az.ravel():
-#     a.set_axis_off()
+for a in az.ravel():
+    a.set_axis_off()
 
 plt.tight_layout()
 plt.show()
@@ -156,16 +157,20 @@ fig, ay = plt.subplots(3,2,figsize=(10,10))
 ay[0,0].imshow(img, cmap='gray')
 ay[0,0].set_title('Original Image')
 
-ay[0,1].imshow(scale(img, 2, 2), cmap='gray')
+img1 = scale(img, 2, 2)
+ay[0,1].imshow(img1, cmap='gray')
 ay[0,1].set_title('Img scaled by a factor of 2')
 
-ay[1,0].imshow(rotate(scale(img, 2, 2), np.pi/3), cmap='gray')
+img2 = rotate(img1, np.pi/8)
+ay[1,0].imshow(img2, cmap='gray')
 ay[1,0].set_title('Img then rotated by pi/3 rad')
 
-ay[1,1].imshow(scale(rotate(scale(img, 2, 2), np.pi/3), 0.5, 0.5), cmap='gray')
+img3 = scale(img2, 0.5, 0.5)
+ay[1,1].imshow(img3, cmap='gray')
 ay[1,1].set_title('Img then scaled by a factor of 0.5')
 
-ay[2,0].imshow(rotate(scale(rotate(scale(img, 2, 2), np.pi/3), 0.5, 0.5), -np.pi/3), cmap='gray')
+img4 = rotate(img3, -np.pi/8)
+ay[2,0].imshow(img4, cmap='gray')
 ay[2,0].set_title('Lastly rotated by -pi/8')
 
 for a in ay.ravel():

@@ -172,14 +172,13 @@ def bicubic(im, zoom_factor):
 			for i in range(4):
 				for j in range(4):
 					A[:,ix] = x_test**i * y_test**j
-					# print(x_test**i * y_test**j)
 					ix += 1
 			print(f"rank(A)={np.linalg.matrix_rank(A)}", end="\r")
 
 			# Define the intensity vector b using the pixel values from the original image.
 			b = im[min_x,min_y]
 
-			# Compute the bilinear equation parameters using the inverse of A.
+			# Compute the bilinear equation parameters using the pseudoinverse of A.
 			v = np.linalg.pinv(A) @ b
 
 			## Apply the bilinear parameters to determine the final interpolated parameters.
@@ -205,6 +204,7 @@ plt.figure(1)
 plt.imshow(img1, cmap="gray")
 plt.colorbar()
 
+plt.gca().set_axis_off()
 
 
 #### Part (b)
@@ -227,6 +227,9 @@ ax[0,1].set_title("Nearest Neigbor")
 ax[1,0].set_title("Bilinear")
 ax[1,1].set_title("Bicubic")
 
+for a in ax.ravel():
+	a.set_axis_off()
+
 plt.tight_layout()
 
 
@@ -240,6 +243,9 @@ ax2[1].imshow(zoomed_2, cmap="gray")
 
 ax2[0].set_title('Original IM2 Image')
 ax2[1].set_title('Bicubic IM2 Image')
+
+for a in ax2.ravel():
+	a.set_axis_off()
 
 
 plt.tight_layout()
