@@ -58,14 +58,16 @@ def alt_transform(im, g):
 
 
 
-'''
-Part (a)
-'''
 ## Load the image
 path = './Data/Fig0308(a)(fractured_spine).tif'
+# path = './Data/Fig0309(a)(washed_out_aerial_image).tif'
 img = Image.open(path)
 img = np.asarray(img)
 
+
+'''
+Part (a)
+'''
 ## Perform the gamma transformations using c=1 and gamma=[0.6,0.4,0.3]
 img_6a = gamma_transform(img, 1, 0.6)
 img_4a = gamma_transform(img, 1, 0.4)
@@ -108,6 +110,7 @@ img_6b = alt_transform(img, 0.6)
 img_4b = alt_transform(img, 0.4)
 img_3b = alt_transform(img, 0.3)
 
+## Plot the transformations
 fig2, ay = plt.subplots(2,2, figsize=(10,10))
 ay[0,0].imshow(img, cmap='gray', vmin=0, vmax=255)
 ay[0,0].set_title('Original Image')

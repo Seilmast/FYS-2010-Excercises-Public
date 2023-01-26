@@ -8,7 +8,7 @@ First we find the ratio
 
 Then we resolve how many lines can be resolved
 
-1024 lines / z ~ 10 l/mm 
+1024 lines / z = 10.24 l/mm ~ 10 l/mm
 
 Dividing by two to get linepairs, and we find that the camera can resolve 5 lp/mm in both directions. 
 

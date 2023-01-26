@@ -6,87 +6,119 @@ def transform(r, r0, E):
     t = np.power((r/r0), E)/(1 + np.power((r/r0), E))
     return t
 
-def new_range(im, min_val = 0, max_val = 1.0):
-    im_min, im_max = np.min(im), np.max(im)
-    new_min, new_max = min_val, max_val
 
-    im_range = im_max - im_min 
-    new_range = new_max - new_min
-
-
-    t = ((im - im_min)*new_range / im_range) + new_min
+def alt_transform(r, r0, E):
+    '''
+    The equation provided in Task 4 is bound to the range [0,1]. As r
+    approaches infinity, T(r) will approach 1.  In order to force this
+    transformation output to match the scale [0,255], a simple multiplication
+    is applied.
+    '''
+    t = 255 * transform(r,r0,E)
     return t
 
+
+
+
+'''
+Part (a)
+'''
+## Load the image
 path = './Data/Fig0310(b)(washed_out_pollen_image).tif'
 img = Image.open(path)
+
+## Convert the image to a float and force it into the range [0,1]
 img = np.asarray(img).astype(np.float64)
-img = np.copy(img/255) 
+img = img/255 
+print(f"r is in range [{np.min(img)}, {np.max(img)}]")
 
-im_min, im_max = np.min(img), np.max(img)
-print(f"r is in range [{im_min}, {im_max}]")
-
+## Plot the original image
 fig1, ax = plt.subplots(3,2, figsize=(10,10))
-ax[0,0].imshow(img, cmap='gray')
+ax[0,0].imshow(img, cmap='gray', vmin=0, vmax=1)
 ax[0,0].set_title('Original Image')
 
-ax[0,1].imshow(new_range(img), cmap='gray')
-ax[0,1].set_title('Transformed to range [0,1]')
+## Plot the transformation curves
+x = np.linspace(0,1,1000)
 
-#Convert image to [0,1] range
-img = np.copy(new_range(img))
+ax[0,1].plot(x, transform(x, 0.5, 2), label="E=2")
+ax[0,1].plot(x, transform(x, 0.5, 4), label="E=4")
+ax[0,1].plot(x, transform(x, 0.5, 6), label="E=6")
+ax[0,1].plot(x, transform(x, 0.5, 8), label="E=8")
+ax[0,1].set_title("Transformation curves")
+ax[0,1].legend()
 
-ax[1,0].imshow(transform(img, 0.5, 2), cmap='gray')
+
+## Plot the transformed images
+ax[1,0].imshow(transform(img, 0.5, 2), cmap='gray', vmin=0, vmax=1)
 ax[1,0].set_title('E = 2')
 
-ax[1,1].imshow(transform(img, 0.5, 4), cmap='gray')
+ax[1,1].imshow(transform(img, 0.5, 4), cmap='gray', vmin=0, vmax=1)
 ax[1,1].set_title('E = 4')
 
-ax[2,0].imshow(transform(img, 0.5, 6), cmap='gray')
+ax[2,0].imshow(transform(img, 0.5, 6), cmap='gray', vmin=0, vmax=1)
 ax[2,0].set_title('E = 6')
 
-ax[2,1].imshow(transform(img, 0.5, 8), cmap='gray')
+ax[2,1].imshow(transform(img, 0.5, 8), cmap='gray', vmin=0, vmax=1)
 ax[2,1].set_title('E = 8')
 
 for a in ax.ravel():
     a.set_axis_off()
+ax[0,1].set_axis_on()
 
-fig1.suptitle('Image range [0, 255]')
+fig1.suptitle('Image range [0, 1]')
 plt.tight_layout()
 
-##### Using range [0, 255] below #####
 
+
+
+
+'''
+Part (b)
+'''
+## Load the image
 path = './Data/Fig0310(b)(washed_out_pollen_image).tif'
 img = Image.open(path)
+
+## Convert the image to a float but keep the [0,255] range
 img = np.asarray(img).astype(np.float64)
+print(f"r is in range [{np.min(img)}, {np.max(img)}]")
 
-
-im_min, im_max = np.min(img), np.max(img)
-print(f"r is in range [{im_min}, {im_max}]")
-
+## Plot the original image
 fig2, ay = plt.subplots(3,2, figsize=(10,10))
-ay[0,0].imshow(img, cmap='gray')
+ay[0,0].imshow(img, cmap='gray', vmin=0, vmax=255)
 ay[0,0].set_title('Original Image')
 
-ay[0,1].imshow(new_range(img), cmap='gray')
-ay[0,1].set_title('Transformed to range [0,255]')
+## Make lists of values of E and r0 to use
+#  feel free to try different combinations here
+Es = [4,4,8,8]
+r0 = [128,64,128,64]
 
-#Convert image to [0,255] range
-img = np.copy(new_range(img, max_val=255))
+## Plot the transformation curves of the alternate
+x = np.linspace(0,255,1000)
 
-ay[1,0].imshow(transform(img, 128, 2), cmap='gray')
-ay[1,0].set_title('E = 2')
+ay[0,1].plot(x, alt_transform(x, r0[0], Es[0]), label=f"E={Es[0]},r0={r0[0]}")
+ay[0,1].plot(x, alt_transform(x, r0[1], Es[1]), label=f"E={Es[1]},r0={r0[1]}")
+ay[0,1].plot(x, alt_transform(x, r0[2], Es[2]), label=f"E={Es[2]},r0={r0[2]}")
+ay[0,1].plot(x, alt_transform(x, r0[3], Es[3]), label=f"E={Es[3]},r0={r0[3]}")
+ay[0,1].set_title("Transformation curves")
+ay[0,1].legend()
 
-ay[1,1].imshow(transform(img, 128, 4), cmap='gray')
-ay[1,1].set_title('E = 4')
+## Plot the images transformed using the alternate transform
+ay[1,0].imshow(alt_transform(img, r0[0], Es[0]), cmap='gray', vmin=0, vmax=255)
+ay[1,0].set_title(f"E={Es[0]}, r0={r0[0]}")
 
-ay[2,0].imshow(transform(img, 128, 6), cmap='gray')
-ay[2,0].set_title('E = 6')
+ay[1,1].imshow(alt_transform(img, r0[1], Es[1]), cmap='gray', vmin=0, vmax=255)
+ay[1,1].set_title(f"E={Es[1]}, r0={r0[1]}")
 
-ay[2,1].imshow(transform(img, 128, 8), cmap='gray')
-ay[2,1].set_title('E = 8')
+ay[2,0].imshow(alt_transform(img, r0[2], Es[2]), cmap='gray', vmin=0, vmax=255)
+ay[2,0].set_title(f"E={Es[2]}, r0={r0[2]}")
+
+ay[2,1].imshow(alt_transform(img, r0[3], Es[3]), cmap='gray', vmin=0, vmax=255)
+ay[2,1].set_title(f"E={Es[3]}, r0={r0[3]}")
 
 for a in ay.ravel():
     a.set_axis_off()
+ay[0,1].set_axis_on()
 
 fig2.suptitle('Image range [0, 255]')
 plt.tight_layout()
