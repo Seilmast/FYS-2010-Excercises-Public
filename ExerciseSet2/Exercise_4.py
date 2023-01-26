@@ -17,7 +17,7 @@ def new_range(im, min_val = 0, max_val = 1.0):
     t = ((im - im_min)*new_range / im_range) + new_min
     return t
 
-path = 'Data\Fig0310(b)(washed_out_pollen_image).tif'
+path = './Data/Fig0310(b)(washed_out_pollen_image).tif'
 img = Image.open(path)
 img = np.asarray(img).astype(np.float64)
 img = np.copy(img/255) 
@@ -55,7 +55,7 @@ plt.tight_layout()
 
 ##### Using range [0, 255] below #####
 
-path = 'Data\Fig0310(b)(washed_out_pollen_image).tif'
+path = './Data/Fig0310(b)(washed_out_pollen_image).tif'
 img = Image.open(path)
 img = np.asarray(img).astype(np.float64)
 

@@ -98,7 +98,7 @@ def shear(img, sv, sh):
 
 
 #Load and convert image to numpy
-img_path = 'ExerciseSet1\Data\Fig0222(b)(cameraman).tif'
+img_path = './Data/Fig0222(b)(cameraman).tif'
 img = Image.open(img_path)
 img = np.asarray(img)
 
@@ -126,8 +126,8 @@ ax[2,0].set_title('Subtask d')
 ax[2,1].imshow(shear(img, 0, 0.5), cmap='gray')
 ax[2,1].set_title('Subtask d')
 
-for a in ax.ravel():
-    a.set_axis_off()
+# for a in ax.ravel():
+#     a.set_axis_off()
 
 plt.tight_layout()
 plt.show()
@@ -142,8 +142,8 @@ az[0].set_title('Subtask e')
 az[1].imshow(scale(shear(shear(img, 0.2, 0), 0, 0.5), 2, 2), cmap='gray')
 az[1].set_title('Subtask e')
 
-for a in az.ravel():
-    a.set_axis_off()
+# for a in az.ravel():
+#     a.set_axis_off()
 
 plt.tight_layout()
 plt.show()

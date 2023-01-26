@@ -38,7 +38,7 @@ def alt_transform(im, c, g):
 
 
 
-path = 'Data\Fig0308(a)(fractured_spine).tif'
+path = './Data/Fig0308(a)(fractured_spine).tif'
 img = Image.open(path)
 img = np.asarray(img)
 
@@ -72,7 +72,7 @@ plt.tight_layout()
 
 
 
-path = 'Data\Fig0308(a)(fractured_spine).tif'
+path = './Data/Fig0308(a)(fractured_spine).tif'
 img2 = Image.open(path)
 img2 = np.asarray(img2).astype(np.uint8)
 
@@ -96,7 +96,7 @@ fig2.suptitle('Uint8 image')
 plt.tight_layout()
 
 
-path = 'Data\Fig0308(a)(fractured_spine).tif'
+path = './Data/Fig0308(a)(fractured_spine).tif'
 img3 = Image.open(path)
 img3 = np.asarray(img3).astype(np.uint8)
 
