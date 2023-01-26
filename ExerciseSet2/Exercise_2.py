@@ -43,8 +43,10 @@ print("uint8 image value range:", arr_int.min(), arr_int.max())
 fig,ax = plt.subplots(1,2, figsize=(10,5))
 dblplt = ax[0].imshow(arr_dbl, cmap="gray")
 plt.colorbar(dblplt, ax=ax[0])
+ax[0].set_title("double image")
 intplt = ax[1].imshow(arr_int, cmap="gray")
 plt.colorbar(intplt, ax=ax[1])
+ax[1].set_title("uint8 image")
 
 for a in ax.ravel(): a.set_axis_off()
 
