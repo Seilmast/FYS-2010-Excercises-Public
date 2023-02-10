@@ -1,5 +1,4 @@
 import numpy as np 
-# from scipy.signal import convolve2d
 import matplotlib.pyplot as plt 
 from PIL import Image
 
