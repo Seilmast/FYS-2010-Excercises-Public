@@ -10,11 +10,11 @@ def intensity_function(n_bits):
     '''
 
     ## Define the x,y grid
-    grid_size = 100
-    grid_range = np.linspace(0,10,grid_size)
+    grid_size = 1000
+    grid_range = np.linspace(0,4,grid_size)
     x,y = np.meshgrid(grid_range, grid_range)
-    x0 = 5
-    y0 = 5
+    x0 = 2
+    y0 = 2
 
     ## Compute the intensity
     i = 255 * np.exp(-( (x-x0)**2 + (y-y0)**2 ))
@@ -24,7 +24,7 @@ def intensity_function(n_bits):
 
     ## Mask the lowest n_bits to reduce the digital resolution
     bitmask = int("1"*(n_bits) + "0"*(8-n_bits), base=2)
-    print("1"*(n_bits) + "0"*(8-n_bits))
+    # print("1"*(n_bits) + "0"*(8-n_bits))
     i = np.bitwise_and(i, bitmask)
 
     return i
@@ -35,7 +35,6 @@ fig,ax = plt.subplots(2,4, figsize=(14,7))
 ax = ax.ravel()
 
 for bit in np.linspace(8,1,8, dtype=int):
-    
     img = intensity_function(bit)
     ax[bit-1].imshow(img)
     ax[bit-1].set_axis_off()
