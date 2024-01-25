@@ -238,8 +238,8 @@ img2 = io.loadmat("./Data/IM2.mat").get("IM2")
 zoomed_2 = bicubic(img2, 1.5)
 
 fig2,ax2 = plt.subplots(nrows=1, ncols=2)
-ax2[0].imshow(img2, cmap="gray")
-ax2[1].imshow(zoomed_2, cmap="gray")
+ax2[0].imshow(img2, cmap="gray", vmin=img2.min(), vmax=img2.max())
+ax2[1].imshow(zoomed_2, cmap="gray", vmin=img2.min(), vmax=img2.max())
 
 ax2[0].set_title('Original IM2 Image')
 ax2[1].set_title('Bicubic IM2 Image')
