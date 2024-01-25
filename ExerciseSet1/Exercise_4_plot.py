@@ -36,7 +36,7 @@ ax = ax.ravel()
 
 for bit in np.linspace(8,1,8, dtype=int):
     img = intensity_function(bit)
-    ax[bit-1].imshow(img)
+    ax[bit-1].imshow(img, cmap="gray")
     ax[bit-1].set_axis_off()
     ax[bit-1].set_title(f"{bit} bits")
 
