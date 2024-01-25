@@ -6,7 +6,7 @@ import matplotlib.colors as colors
 
 ###Subtask a###
 
-img_path = 'ExerciseSet1\Data\Fig0207(a)(gray level band).tif'
+img_path = './Data/Fig0207(a)(gray level band).tif'
 image = Image.open(img_path)
 
 #To make the image easier to work with, we'll convert it no ndarray
