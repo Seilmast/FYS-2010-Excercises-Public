@@ -98,7 +98,6 @@ def shear(img, sv, sh):
 
 
 #Load and convert image to numpy
-# img_path = 'ExerciseSet1\Data\Fig0222(b)(cameraman).tif'
 img_path = './/Data//Fig0222(b)(cameraman).tif'
 img = Image.open(img_path)
 img = np.asarray(img)

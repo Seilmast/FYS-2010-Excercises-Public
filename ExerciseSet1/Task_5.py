@@ -199,7 +199,7 @@ def bicubic(im, zoom_factor):
 
 #### Part (a)
 # Load and plot image
-img1 = io.loadmat("./Data/IM1.mat").get("IM1")
+img1 = io.loadmat(".//Data//IM1.mat").get("IM1")
 plt.figure(1)
 plt.imshow(img1, cmap="gray")
 plt.colorbar()
@@ -234,7 +234,7 @@ plt.tight_layout()
 
 
 #### Part (c)
-img2 = io.loadmat("./Data/IM2.mat").get("IM2")
+img2 = io.loadmat(".//Data//IM2.mat").get("IM2")
 zoomed_2 = bicubic(img2, 1.5)
 
 fig2,ax2 = plt.subplots(nrows=1, ncols=2)
