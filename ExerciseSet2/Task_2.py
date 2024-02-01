@@ -20,7 +20,7 @@ def im2uint8(im):
 	## Scale the intensities to [0,255]
 	_im = im*255
 
-	## Convert the data type to float
+	## Convert the data type to uint8
 	_im = _im.astype(np.uint8)
 
 	return _im

@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 def transform(r, r0, E):
-    t = np.power((r/r0), E) / (1 + np.power((r/r0), E))
+    numerator = np.power((r/r0), E)
+    denomator = 1 + np.power((r/r0), E)
+    t = numerator / denomator
     return t
 
 
@@ -92,7 +94,7 @@ ay[0,0].set_title('Original Image')
 ## Make lists of values of E and r0 to use
 #  feel free to try different combinations here
 Es = [4,4,8,8]
-r0 = [128,64,128,64]
+r0 = [128,200,128,200]
 
 ## Plot the transformation curves of the alternate
 x = np.linspace(0,255,1000)

@@ -6,9 +6,6 @@ from scipy.ndimage import gaussian_filter
 '''
 Produce the two images
 '''
-def checkerboard(shape):
-    return np.indices(shape).sum(axis=(0)) % 2
-
 img_binary = np.zeros((1600, 1600))
 img_binary[:,:799] = 255
 img_checkerboard = np.zeros((1600, 1600))
