@@ -23,7 +23,6 @@ def h(i):
 ## Define g(i) as a sum of ramp functions
 def g(i):
     return 0.5*h(.5*(i+a)) + 0.5*h(-.5*(i+a/5)) + h(i+a/5) + h(-1*(i-a/5)) - 0.5*h(.5*(i-a/5)) - 0.5*h(-.5*(i-a))
-# g = lambda i: 0.5*h(.5*(i+a)) + 0.5*h(-.5*(i+a/5)) + h(i+a/5) + h(-1*(i-a/5)) - 0.5*h(.5*(i-a/5)) - 0.5*h(-.5*(i-a))
 
 
 
