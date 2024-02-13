@@ -11,7 +11,7 @@ def radonTransform(image, theta_steps):
     theta = np.linspace(0,180, theta_steps)
     sinogram = radon(image, theta)
     reconstruction = iradon(sinogram, theta)
-    return reconstruction
+    return sinogram, reconstruction
 
 ## Test it with different numbers of steps
 sino1, recon1 = radonTransform(img, 400)
