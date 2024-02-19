@@ -29,7 +29,7 @@ def harmonicMeanFilter(im:np.ndarray, filter_shape:tuple):
     Harmonic mean filter function.
     '''
     ## Define the convolution filter kernel
-    kernel = np.ones(filter_shape) / np.prod(tup)
+    kernel = np.ones(filter_shape) / np.prod(filter_shape)
 
     ## Compute the reciprocal of the pixel values
     #  Add a very small value to avoid dividing by zero
