@@ -4,6 +4,32 @@ from matplotlib import pyplot as plt
 from scipy.signal import convolve2d
 
 
+def medianFilter(im:np.ndarray, filter_shape:tuple):
+    '''
+    Median filter function.
+    '''
+    ## Initialize the output
+    output_im = np.copy(im)
+
+    ## Pad the input image
+    pad_tup = [(filter_shape[0]//2, filter_shape[0]//2),
+               (filter_shape[1]//2, filter_shape[1]//2)]
+    padded_im = np.pad(im, pad_tup, mode="wrap")
+
+    ## Loop through coordinates of the padded image
+    for row in range(output_im.shape[0]):
+        for col in range(output_im.shape[1]):
+            
+            # Define the patch we care about
+            patch = padded_im[row : row+filter_shape[0], 
+                              col : col+filter_shape[1],
+                              ...]
+            
+            # Compute the new pixel value
+            output_im[row,col,...] = np.median(patch, axis=(0,1))
+
+    return output_im
+
 
 def geomMeanFilter(im:np.ndarray, filter_shape:tuple):
     '''
@@ -49,8 +75,9 @@ def alphaTrimmedMeanFilter(im:np.ndarray, filter_shape:tuple, d:int):
     Alpha-trimmed mean filter function.
     '''
     ## Pad the input image
-    pad_tup = (filter_shape[1]//2, filter_shape[1]//2)
-    _im = np.pad(im, pad_tup, mode="wrap")
+    pad_tup = [(filter_shape[0]//2, filter_shape[0]//2),
+               (filter_shape[1]//2, filter_shape[1]//2)]
+    padded_im = np.pad(im, pad_tup, mode="wrap")
 
     ## Initialize a filtered image
     im_out = np.zeros_like(im)
@@ -60,7 +87,7 @@ def alphaTrimmedMeanFilter(im:np.ndarray, filter_shape:tuple, d:int):
         for col in range(im.shape[1]):
 
             # Define the image patch
-            patch = _im[row:row+filter_shape[0], col:col+filter_shape[1]]
+            patch = padded_im[row:row+filter_shape[0], col:col+filter_shape[1]]
             
             # Extract the values of the patch and sort them by value
             patchvals = list(patch.ravel())
@@ -73,6 +100,7 @@ def alphaTrimmedMeanFilter(im:np.ndarray, filter_shape:tuple, d:int):
     return im_out
 
 
+
 '''
 Part (1)
 '''
@@ -81,12 +109,18 @@ im1a = np.array( Image.open("Data/Fig0507(a)(ckt-board-orig).tif") )
 im1b = np.array( Image.open("Data/Fig0507(b)(ckt-board-gauss-var-400).tif") )
 
 ## Define the kernel sizes to use
+# filter_shapes = [(3,5),(5,3)]
 filter_shapes = [(3,3), (7,7), (11,11)]
-fig1,ax1 = plt.subplots(4, len(filter_shapes), figsize=(7,10))
+fig1a,ax1a = plt.subplots(3, len(filter_shapes), figsize=(7,7))
+fig1b,ax1b = plt.subplots(3, len(filter_shapes), figsize=(7,7))
+
 
 ## Loop through all the specified filter sizes
 for ix,tup in enumerate(filter_shapes):
-    ## Compute the geometric and harmonic means of each image
+    ## Compute the median, geometric, and harmonic means of each image
+    median_a = medianFilter(im1a, tup)
+    median_b = medianFilter(im1b, tup)
+    
     geom_mean_a = geomMeanFilter(im1a, tup)
     geom_mean_b = geomMeanFilter(im1b, tup)
 
@@ -95,28 +129,46 @@ for ix,tup in enumerate(filter_shapes):
 
 
     ## Plot the filtered images
-    ax1[0,ix].imshow(geom_mean_a, cmap="gray", vmin=0, vmax=255)
-    ax1[1,ix].imshow(geom_mean_b, cmap="gray", vmin=0, vmax=255)
-    ax1[2,ix].imshow(harmonic_a, cmap="gray", vmin=0, vmax=255)
-    ax1[3,ix].imshow(harmonic_b, cmap="gray", vmin=0, vmax=255)
+    ax1a[0,ix].imshow(median_a, cmap="gray", vmin=0, vmax=255)
+    ax1a[1,ix].imshow(geom_mean_a, cmap="gray", vmin=0, vmax=255)
+    ax1a[2,ix].imshow(harmonic_a, cmap="gray", vmin=0, vmax=255)
+
+    ax1b[0,ix].imshow(median_b, cmap="gray", vmin=0, vmax=255)
+    ax1b[1,ix].imshow(geom_mean_b, cmap="gray", vmin=0, vmax=255)
+    ax1b[2,ix].imshow(harmonic_b, cmap="gray", vmin=0, vmax=255)
 
     ## Add titles where necessary
-    ax1[0,ix].set_title(f"Filter size {tup}")
+    ax1a[0,ix].set_title(f"Filter size {tup}")
+    ax1b[0,ix].set_title(f"Filter size {tup}")
 
 
 ## Format the images by making the axes invisible
-for a in ax1.ravel(): 
+for a in ax1a.ravel(): 
     a.spines.left.set_visible(False)
     a.spines.right.set_visible(False)
     a.spines.top.set_visible(False)
     a.spines.bottom.set_visible(False)
     a.set_xticks([])
     a.set_yticks([])
-ax1[0,0].set_ylabel("Image A geometric mean filter")
-ax1[1,0].set_ylabel("Image B geometric mean filter")
-ax1[2,0].set_ylabel("Image A harmonic mean filter")
-ax1[3,0].set_ylabel("Image B harmonic mean filter")
-plt.tight_layout()
+ax1a[0,0].set_ylabel("Median mean filter")
+ax1a[1,0].set_ylabel("Geometric mean filter")
+ax1a[2,0].set_ylabel("Harmonic mean filter")
+fig1a.suptitle("Image A")
+fig1a.tight_layout()
+
+for a in ax1b.ravel(): 
+    a.spines.left.set_visible(False)
+    a.spines.right.set_visible(False)
+    a.spines.top.set_visible(False)
+    a.spines.bottom.set_visible(False)
+    a.set_xticks([])
+    a.set_yticks([])
+ax1b[0,0].set_ylabel("Median mean filter")
+ax1b[1,0].set_ylabel("Geometric mean filter")
+ax1b[2,0].set_ylabel("Harmonic mean filter")
+fig1b.suptitle("Image B")
+fig1b.tight_layout()
+
 
 
 
