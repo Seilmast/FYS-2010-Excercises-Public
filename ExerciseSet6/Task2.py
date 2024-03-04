@@ -51,6 +51,12 @@ ax_b[2].set_xlabel("Pixel Value")
 
 plt.tight_layout()
 
+'''
+The blue histogram has two distinct and very separate modes.  Because the flower 
+is blue, we can assume the higher mode are the pixels that make up the flower and
+will be best for segmenting it.
+'''
+
 
 #########################################################
 ###################### Subtask (c) ######################
@@ -123,6 +129,12 @@ ax_d[2].set_title("Intensity Channel")
 ax_d[2].set_xlabel("Pixel Value")
 
 plt.tight_layout()
+
+'''
+The hue histogram has two distinct and very separate modes.  This is because
+the hue of the flower is very different from the rest of the background.  This
+makes the hue channel best for segmenting the flower from the background.
+'''
 
 
 plt.show()

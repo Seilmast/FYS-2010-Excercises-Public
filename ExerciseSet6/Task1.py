@@ -97,9 +97,9 @@ ax[2,2].imshow(blue_right, cmap="gray", vmin=0, vmax=1)
 ax[0,2].set_title("Right")
 
 ## Label the colors
-ax[0,0].set_ylabel("R")
-ax[1,0].set_ylabel("G")
-ax[2,0].set_ylabel("B")
+ax[0,0].set_ylabel("Red")
+ax[1,0].set_ylabel("Green")
+ax[2,0].set_ylabel("Blue")
 
 # for a in ax.ravel():
 #     a.set_axis_off()
