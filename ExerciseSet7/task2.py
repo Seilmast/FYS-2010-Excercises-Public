@@ -17,13 +17,13 @@ fs = (xvec.max() - xvec.min())/N
 frq_vec = (np.arange(0,N) - N//2) / N * fs
 
 # xvec = np.linspace(-4,4, N)
-w0 = scaled_gabor(1,0.5,xvec)
-w1 = scaled_gabor(2,0.5,xvec)
+w0 = scaled_gabor(0.5,1,xvec)
+w1 = scaled_gabor(0.5,2,xvec)
 w2 = scaled_gabor(1,1,xvec)
 
 fig1,ax1 = plt.subplots(1,1)
-ax1.plot(xvec, w0, label="$\sigma=1, s=0.5$")
-ax1.plot(xvec, w1, label="$\sigma=2, s=0.5$")
+ax1.plot(xvec, w0, label="$\sigma=0.5, s=1$")
+ax1.plot(xvec, w1, label="$\sigma=0.5, s=2$")
 ax1.plot(xvec, w2, label="$\sigma=1, s=1$")
 ax1.set_ylabel("$w_{\sigma,s}$")
 ax1.set_xlabel("x")
@@ -38,8 +38,8 @@ W1 = np.fft.fftshift( np.fft.fft(w1) )
 W2 = np.fft.fftshift( np.fft.fft(w2) )
 
 fig2, ax2 = plt.subplots(1,1)
-ax2.plot(frq_vec, np.absolute(W0), label="$\sigma=1, s=0.5$")
-ax2.plot(frq_vec, np.absolute(W1), label="$\sigma=2, s=0.5$")
+ax2.plot(frq_vec, np.absolute(W0), label="$\sigma=0.5, s=1$")
+ax2.plot(frq_vec, np.absolute(W1), label="$\sigma=0.5, s=2$")
 ax2.plot(frq_vec, np.absolute(W2), label="$\sigma=1, s=1$")
 ax2.set_ylabel("dB")
 ax2.set_xlabel("$f$")
@@ -62,7 +62,7 @@ S = np.zeros(N)
 for exp in expvec:
     w = scaled_gabor(0.5, 2**exp, xvec)
     W = np.fft.fftshift( np.fft.fft(w) )
-    S += np.absolute(W)
+    S += np.absolute(W)**2
 
 
 fig3,ax3 = plt.subplots(1,1)
