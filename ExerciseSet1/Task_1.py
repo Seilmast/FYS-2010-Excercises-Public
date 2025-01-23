@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.ndimage.interpolation import rotate
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 ###Subtask a###
 A = np.zeros((7,8))
 
